@@ -1,0 +1,42 @@
+# Local agent and tool state
+.claude/settings.local.json
+.opencode/package.json
+.opencode/bun.lock
+.opencode/.gitignore
+
+# Dependencies and virtual environments
+node_modules/
+.venv/
+venv/
+
+# Python caches, test output, and build artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+*.whl
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*~
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
