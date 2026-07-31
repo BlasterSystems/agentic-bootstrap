@@ -15,7 +15,9 @@ from .planner import Action, Operation, Plan
 
 
 class ApplyError(RuntimeError):
-    pass
+    def __init__(self, message: str, *, rollback_status: str = "not-needed") -> None:
+        super().__init__(message)
+        self.rollback_status = rollback_status
 
 
 @dataclass
@@ -247,25 +249,28 @@ def apply_plan(
                 raise ApplyError("post-stage validation failed: " + "; ".join(errors))
         return manifest
     except Exception as exc:
+        rollback_errors: list[str] = []
         for destination in reversed(created_files):
             try:
                 if _exists(destination):
                     destination.unlink()
-            except OSError:
-                pass
+            except OSError as rollback_exc:
+                rollback_errors.append(f"remove {destination}: {rollback_exc}")
         for saved in reversed(saved_paths):
             try:
                 _restore(saved)
-            except OSError:
-                pass
+            except OSError as rollback_exc:
+                rollback_errors.append(f"restore {saved.destination}: {rollback_exc}")
         for directory in reversed(created_dirs):
             try:
                 directory.rmdir()
-            except OSError:
-                pass
-        if isinstance(exc, ApplyError):
-            raise
-        raise ApplyError(f"apply failed and rollback was attempted: {exc}") from exc
+            except OSError as rollback_exc:
+                rollback_errors.append(f"remove directory {directory}: {rollback_exc}")
+        rollback_status = "failed" if rollback_errors else "succeeded"
+        message = str(exc) if isinstance(exc, ApplyError) else f"apply failed: {exc}"
+        if rollback_errors:
+            message += "; rollback errors: " + "; ".join(rollback_errors)
+        raise ApplyError(message, rollback_status=rollback_status) from exc
     finally:
         shutil.rmtree(stage, ignore_errors=True)
         shutil.rmtree(backup, ignore_errors=True)

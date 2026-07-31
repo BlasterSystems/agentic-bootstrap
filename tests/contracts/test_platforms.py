@@ -20,6 +20,7 @@ class PlatformContractTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             files = render_project(request(Path(directory), ["claude"], mcp=True, agents=True))
             self.assertIn("CLAUDE.md", files)
+            self.assertIn(".claude/skills/agentic-bootstrap/SKILL.md", files)
             self.assertIn(".claude/skills/docs-check/SKILL.md", files)
             self.assertIn(".claude/skills/semantic-versioning/SKILL.md", files)
             self.assertIn(".claude/agents/architecture-reviewer.md", files)
@@ -30,6 +31,7 @@ class PlatformContractTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             files = render_project(request(Path(directory), ["codex"], mcp=True, agents=True))
             self.assertIn("AGENTS.md", files)
+            self.assertIn(".agents/skills/agentic-bootstrap/SKILL.md", files)
             self.assertIn(".agents/skills/docs-check/SKILL.md", files)
             self.assertIn(".agents/skills/semantic-versioning/SKILL.md", files)
             self.assertIn(".codex/config.toml", files)
@@ -40,6 +42,7 @@ class PlatformContractTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             files = render_project(request(Path(directory), ["pi"], mcp=True, agents=True))
             self.assertIn("AGENTS.md", files)
+            self.assertIn(".agents/skills/agentic-bootstrap/SKILL.md", files)
             self.assertIn(".agents/skills/docs-check/SKILL.md", files)
             self.assertIn(".agents/skills/semantic-versioning/SKILL.md", files)
             self.assertFalse(any(path.startswith(".pi/") for path in files))

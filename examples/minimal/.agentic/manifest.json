@@ -4,7 +4,7 @@
   "platforms": [
     "pi"
   ],
-  "updated_at": "2026-07-31T00:05:37+00:00",
+  "updated_at": "2026-07-31T13:52:53+00:00",
   "files": {
     ".agentic/bin/docs-check": {
       "sha256": "bb84a835599d8b9052231ffe59fae3b1ee29ea9d22345632143f9be03be16e9e",
@@ -12,12 +12,17 @@
       "mutable": false
     },
     ".agentic/bin/validate": {
-      "sha256": "c4a480d403a50fd2b6d3e204eb0c721e6ba6bba6058c2cce1d5808a503739cba",
+      "sha256": "1a42e3bb7c0d24343fd606d47489c188ec45bb42e08ee283b667727b8295d256",
       "executable": true,
       "mutable": false
     },
     ".agentic/config.json": {
       "sha256": "a22752819e248b95d3001337b310da68d69325d21082d192ca89314e047a056c",
+      "executable": false,
+      "mutable": false
+    },
+    ".agents/skills/agentic-bootstrap/SKILL.md": {
+      "sha256": "34c051e3bbdb73a46e6646d2e27c49061f8cbc9caf52dad4a656fe6fa838dd52",
       "executable": false,
       "mutable": false
     },
@@ -37,27 +42,32 @@
       "mutable": false
     },
     "AGENTS.md": {
-      "sha256": "4ba6d8c830be7b43e1fe2a56229a983f1fb007bc392902452bf4ddd8a47f2e9f",
+      "sha256": "5fd703cf41778f19357a9dd2a427fe901f91ced2ae14cd1e7edc58431c8dff9e",
+      "executable": false,
+      "mutable": true
+    },
+    "docs/AGENT_GUIDED.md": {
+      "sha256": "126b9c980a22b6aacfaa892b09134202edc6e47be5b2b910501ae7ba0d95be21",
       "executable": false,
       "mutable": true
     },
     "docs/ARCHITECTURE.md": {
-      "sha256": "a513993d4a7e5203d38490bf79b0ce66a297f7b0d060cecaae7509555c83516a",
+      "sha256": "fa08e9c7bb49a656f6437f51bef30c16ccb39a45dfd10389c11e0ba429f3a369",
       "executable": false,
       "mutable": true
     },
     "docs/DEVELOPMENT_PROCESS.md": {
-      "sha256": "0dafc6a69b79852187f610f040c68f3814c974c37e9b5e0cd94e5fba60b70209",
+      "sha256": "fbdf88f5fb4237e8bb17b480fafd90338a9acf034e2dae5e4e1388ee28dc714b",
       "executable": false,
       "mutable": true
     },
     "docs/PLATFORM_SUPPORT.md": {
-      "sha256": "b94e866193474b293fe48c6773e7176221885f20cd266acb054b5df684f4e6c9",
+      "sha256": "c2da49b76b02f6f32601204295e1e26f68afa6f565916e6a143398b8418aaa14",
       "executable": false,
       "mutable": false
     },
     "docs/README.md": {
-      "sha256": "22c5486ec79a65583df723ee28b72c612b889b5944faa2c2e5193b5927bbffcf",
+      "sha256": "77ba02ca03f198b61cac4f6960d22dd48a059e2297fcbbef164b77eabca76081",
       "executable": false,
       "mutable": true
     },

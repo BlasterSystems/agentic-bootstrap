@@ -87,7 +87,7 @@ def build_plan(
     *,
     remove_obsolete: bool = False,
 ) -> Plan:
-    root = root.expanduser().absolute()
+    root = Path(os.path.normpath(str(root.expanduser().absolute())))
     operations: list[Operation] = []
     root_existed = root.exists() or root.is_symlink()
 
@@ -117,6 +117,8 @@ def build_plan(
     if _exists(manifest_path):
         try:
             assert_safe_target_path(root, MANIFEST_PATH, allow_missing_leaf=False)
+            if not stat.S_ISREG(os.lstat(manifest_path).st_mode):
+                raise ManifestError("ownership manifest must be a regular file")
             manifest_hash = sha256_path(manifest_path)
             manifest = Manifest.load(root)
         except (UnsafePathError, ManifestError, OSError) as exc:
@@ -133,11 +135,16 @@ def build_plan(
         if not _exists(path):
             operations.append(Operation(relative, Action.CREATE, generated))
             continue
-        if path.is_symlink():
+        try:
+            destination_mode = os.lstat(path).st_mode
+        except OSError as exc:
+            operations.append(Operation(relative, Action.CONFLICT, generated, f"cannot inspect destination: {exc}"))
+            continue
+        if stat.S_ISLNK(destination_mode):
             operations.append(Operation(relative, Action.CONFLICT, generated, "symlink destination is unmanaged"))
             continue
-        if path.is_dir():
-            operations.append(Operation(relative, Action.CONFLICT, generated, "destination is a directory"))
+        if not stat.S_ISREG(destination_mode):
+            operations.append(Operation(relative, Action.CONFLICT, generated, "destination is not a regular file"))
             continue
         try:
             current_hash = sha256_path(path)

@@ -198,6 +198,25 @@ class ValidationTests(unittest.TestCase):
             self.assertTrue(any("Superseded by requires status Superseded" in error for error in errors))
             self.assertTrue(any("must have status Superseded" in error for error in errors))
 
+    def test_portable_skill_front_matter_and_platform_tokens_are_validated(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            req = request(root, ["pi"])
+            apply_plan(build_plan(root, render_project(req)), req.features.normalized_platforms())
+            skill = root / ".agents/skills/agentic-bootstrap/SKILL.md"
+            skill.write_text("---\nname: wrong\n---\nUse .claude/settings\n", encoding="utf-8")
+            errors = validate_target(root)
+            self.assertTrue(any("platform-specific token" in error for error in errors), errors)
+            self.assertTrue(any("front matter name" in error for error in errors), errors)
+            standalone = subprocess.run(
+                [str(root / ".agentic/bin/validate")], cwd=root,
+                text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                timeout=30, check=False,
+            )
+            self.assertEqual(1, standalone.returncode, standalone.stdout)
+            self.assertIn("platform-specific token", standalone.stdout)
+            self.assertIn("front matter name", standalone.stdout)
+
     def test_superseded_adr_requires_replacement_link(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

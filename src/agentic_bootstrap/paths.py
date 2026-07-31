@@ -29,7 +29,8 @@ def assert_safe_target_path(
     allow_leaf_symlink: bool = False,
 ) -> Path:
     relative = normalize_relative_path(relative)
-    root = root.resolve()
+    root = Path(os.path.normpath(str(root.expanduser().absolute())))
+    assert_safe_root_parent(root)
     candidate = root.joinpath(*PurePosixPath(relative).parts)
     try:
         candidate.relative_to(root)
@@ -59,19 +60,28 @@ def assert_safe_target_path(
 
 
 def assert_safe_root_parent(root: Path) -> None:
-    """Reject symlink ancestors between the nearest existing parent and the target."""
-    absolute = root.absolute()
-    current = absolute
-    missing: list[Path] = []
-    while not current.exists() and not current.is_symlink():
-        missing.append(current)
-        if current.parent == current:
-            break
-        current = current.parent
-    if current.is_symlink():
-        raise UnsafePathError(f"target ancestor is a symlink: {current}")
-    # Existing ancestors above the nearest existing parent are outside generator control.
-    # Every created component is checked again immediately before use.
-    for path in reversed(missing):
-        if path.exists() and path.is_symlink():
-            raise UnsafePathError(f"target ancestor became a symlink: {path}")
+    """Reject symlinks and non-directories in every existing target component."""
+    absolute = Path(os.path.normpath(str(root.expanduser().absolute())))
+    anchor = Path(absolute.anchor)
+    current = anchor
+    relative_parts = absolute.parts[1:] if absolute.anchor else absolute.parts
+    for index, part in enumerate(relative_parts):
+        current = current / part
+        is_root = index == len(relative_parts) - 1
+        try:
+            mode = os.lstat(current).st_mode
+        except FileNotFoundError:
+            continue
+        except OSError as exc:
+            raise UnsafePathError(f"cannot inspect target ancestor {current}: {exc}") from exc
+        if stat.S_ISLNK(mode):
+            # macOS and some Unix layouts use fixed top-level aliases such as
+            # /var -> /private/var. Treat only those root-owned namespace aliases
+            # as part of the filesystem anchor; reject every deeper symlink.
+            if current.parent == anchor and not is_root:
+                continue
+            raise UnsafePathError(f"target ancestor is a symlink: {current}")
+        if not is_root and not stat.S_ISDIR(mode):
+            raise UnsafePathError(f"target ancestor is not a directory: {current}")
+        if is_root and not stat.S_ISDIR(mode):
+            raise UnsafePathError(f"target root is not a directory: {current}")

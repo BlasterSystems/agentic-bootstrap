@@ -22,6 +22,9 @@ agentic-bootstrap init --platform pi --yes --target /path/to/project
 agentic-bootstrap retrofit --platform claude,codex,pi,opencode \
   --dry-run --yes --target /path/to/project
 
+# Inspect bounded evidence without changing the project
+agentic-bootstrap inspect --target /path/to/project
+
 # Validate generated configuration
 agentic-bootstrap validate --target /path/to/project
 ```
@@ -41,11 +44,14 @@ scripts/agentic-bootstrap.sh init --platform all --dry-run --yes --target /path/
 --scheduled-audit  Weekly docs-check schedule; implies --github
 --hooks            Git hooks without changing Git configuration
 --answers FILE     Confirmed project and feature answers as JSON
+--agent-guided     LLM-advisory preview with separate human apply
+--agent-intent FILE Strict unverified proposal for agent-guided mode
+--expected-plan ID Integrity check for interactive human apply
 --plan-format json Machine-readable plan
 --remove-obsolete  Explicitly remove obsolete manifest-owned files
 ```
 
-See the [answers-file reference](docs/ANSWERS.md) for the JSON schema and a complete example. Unmanaged files are never overwritten; start with `--dry-run` when retrofitting.
+See the [answers-file reference](docs/ANSWERS.md) for trusted-caller JSON and the [agent-guided protocol](docs/AGENT_GUIDED.md) for bounded inspection, typed proposals, preview, and trusted-terminal handoff. Unmanaged files are never overwritten; start with `--dry-run` when retrofitting.
 
 ## Documentation: load progressively
 

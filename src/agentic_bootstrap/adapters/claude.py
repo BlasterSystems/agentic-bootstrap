@@ -17,7 +17,7 @@ class ClaudeAdapter:
                 "CLAUDE.md", templates.render("adapters/claude/CLAUDE.md", values)
             ),
         }
-        for skill in ("architecture-decision", "docs-check", "semantic-versioning"):
+        for skill in ("agentic-bootstrap", "architecture-decision", "docs-check", "semantic-versioning"):
             source = f"core/skills/{skill}/SKILL.md"
             target = f".claude/skills/{skill}/SKILL.md"
             files[target] = GeneratedFile.text(target, templates.render(source, values))

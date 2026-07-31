@@ -14,6 +14,7 @@ MANIFEST = ROOT / ".agentic/manifest.json"
 MANIFEST_SCHEMA = "agentic-bootstrap-manifest/v1"
 VALID_STATUSES = {"Proposed", "Accepted", "Rejected", "Deprecated", "Superseded"}
 TOKEN = re.compile(rb"\{\{[A-Z0-9_]+\}\}")
+PORTABLE_FORBIDDEN = ("mcp__", "Task tool", ".claude/", ".codex/", ".opencode/", ".pi/")
 ADR_FILENAME = re.compile(r"^(\d{4})-[a-z0-9][a-z0-9-]*\.md$")
 ADR_REFERENCE = re.compile(r"ADR-(\d{4})")
 REQUIRED_SECTIONS = (
@@ -95,6 +96,19 @@ def validate_generated(paths: list[Path]) -> None:
             continue
         if TOKEN.search(content):
             error(f"{relative}: unresolved template token")
+        if relative == "AGENTS.md" or relative.startswith(".agents/skills/"):
+            try:
+                text = content.decode("utf-8")
+            except UnicodeDecodeError:
+                error(f"{relative}: portable content must be UTF-8 text")
+            else:
+                for token in PORTABLE_FORBIDDEN:
+                    if token in text:
+                        error(f"{relative} contains platform-specific token: {token}")
+                if relative.startswith(".agents/skills/") and relative.endswith("/SKILL.md"):
+                    skill_name = relative.split("/")[-2]
+                    if not text.startswith("---\n") or f"\nname: {skill_name}\n" not in text:
+                        error(f"{relative}: skill front matter name must match its directory")
         if path.suffix == ".json":
             try:
                 json.loads(content)

@@ -6,7 +6,7 @@ Read the request, relevant code, acceptance criteria, and minimum necessary docu
 
 ## 2. Plan
 
-Create or update a task file. Identify affected modules, tests, documentation, migration concerns, and whether an ADR is required.
+Create or update a task file. Identify affected modules, tests, documentation, migration concerns, and whether an ADR is required. In agent-guided bootstrap workflows, the agent stops after preview and a human separately applies the recomputed plan.
 
 ## 3. Decide
 

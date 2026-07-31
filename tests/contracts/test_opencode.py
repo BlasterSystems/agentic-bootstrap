@@ -26,6 +26,7 @@ class OpenCodeContractTests(unittest.TestCase):
             self.assertNotIn("model", config)
             self.assertIn(".opencode/commands/adr-new.md", files)
             self.assertIn(".opencode/agents/architecture-reviewer.md", files)
+            self.assertIn(".agents/skills/agentic-bootstrap/SKILL.md", files)
             self.assertIn(".agents/skills/architecture-decision/SKILL.md", files)
             self.assertIn(".agents/skills/semantic-versioning/SKILL.md", files)
 
@@ -60,7 +61,7 @@ class OpenCodeContractTests(unittest.TestCase):
             self.assertIn("adr-new", config["command"])
             skills = json.loads(outputs["skill"])
             self.assertEqual(
-                {"architecture-decision", "docs-check", "semantic-versioning"},
+                {"agentic-bootstrap", "architecture-decision", "docs-check", "semantic-versioning"},
                 {item["name"] for item in skills},
             )
             agent = json.loads(outputs["agent"])

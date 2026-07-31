@@ -10,6 +10,8 @@ Read only the section relevant to the current task.
 ## Architecture and decisions
 
 - [Architecture](ARCHITECTURE.md) — system boundaries, modules, and safety model.
+- [Agent-guided protocol](AGENT_GUIDED.md) — bounded inspection, typed proposals, plan integrity, and human handoff.
+- [Threat model](THREAT_MODEL.md) — trusted components, covered threats, and explicit limitations.
 - [ADR index](adr/README.md) — decision catalog; read this before individual ADRs.
 - [MVP specification](superpowers-spec.md) — normative framework contract.
 

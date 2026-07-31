@@ -7,10 +7,12 @@ All notable changes to this project are documented here. The format follows [Kee
 ### Added
 
 - Answers-file reference and a repository version-metadata synchronization helper.
+- Optional agent-guided bounded inspection, strict typed proposals, deterministic plan-integrity identifiers, trusted-terminal human handoff, and a provider-neutral maintenance skill.
 
 ### Changed
 
 - Expanded CLI help for safe noninteractive generation and retrofit flags.
+- Added the read-only `inspect` command while preserving direct non-LLM initialization, retrofit, and validation workflows.
 
 ### Fixed
 

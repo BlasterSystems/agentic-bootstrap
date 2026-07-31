@@ -1,0 +1,21 @@
+{
+  "schema": "agentic-bootstrap-intent/v1",
+  "project": {
+    "name": "example-service",
+    "description": "Processes example requests",
+    "build_command": "python -m build",
+    "test_command": "python -m unittest",
+    "run_command": null,
+    "ticket_prefix": null
+  },
+  "features": {
+    "platforms": [
+      "pi"
+    ],
+    "mcp": false,
+    "agents": false,
+    "github": false,
+    "scheduled_audit": false,
+    "hooks": false
+  }
+}

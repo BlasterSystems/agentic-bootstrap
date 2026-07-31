@@ -6,10 +6,12 @@ This is the exact renderer output when all platforms and optional features are e
 .agentic/bin/docs-check
 .agentic/bin/validate
 .agentic/config.json
+.agents/skills/agentic-bootstrap/SKILL.md
 .agents/skills/architecture-decision/SKILL.md
 .agents/skills/docs-check/SKILL.md
 .agents/skills/semantic-versioning/SKILL.md
 .claude/agents/architecture-reviewer.md
+.claude/skills/agentic-bootstrap/SKILL.md
 .claude/skills/architecture-decision/SKILL.md
 .claude/skills/docs-check/SKILL.md
 .claude/skills/semantic-versioning/SKILL.md
@@ -23,6 +25,7 @@ This is the exact renderer output when all platforms and optional features are e
 .opencode/commands/docs-check.md
 AGENTS.md
 CLAUDE.md
+docs/AGENT_GUIDED.md
 docs/ARCHITECTURE.md
 docs/DEVELOPMENT_PROCESS.md
 docs/PLATFORM_SUPPORT.md
@@ -35,4 +38,4 @@ setup-hooks.sh
 tasks/task-template.md
 ```
 
-`.agentic/manifest.json` is written only after a successful apply and is not renderer output. New projects do not receive `.codex.md` or `.claude/claude.json`.
+`.agentic/manifest.json` is written only after a successful apply and is not renderer output. The project-scoped `agentic-bootstrap` skill is advisory and does not install a user-scoped skill or authorize apply. New projects do not receive `.codex.md` or `.claude/claude.json`.

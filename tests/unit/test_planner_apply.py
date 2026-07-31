@@ -140,6 +140,40 @@ class PlannerApplyTests(unittest.TestCase):
                 apply_plan(plan, ["pi"])
             self.assertEqual("external\n", victim.read_text(encoding="utf-8"))
 
+    def test_symlinked_target_ancestor_is_conflict_and_external_tree_is_untouched(self) -> None:
+        with tempfile.TemporaryDirectory() as directory, tempfile.TemporaryDirectory() as external_directory:
+            base = Path(directory)
+            external_root = Path(external_directory) / "nested/project"
+            external_root.mkdir(parents=True)
+            alias = base / "alias"
+            alias.symlink_to(Path(external_directory), target_is_directory=True)
+            root = alias / "nested/project"
+            plan = build_plan(root, render_project(request(root)))
+            self.assertTrue(plan.conflicts)
+            self.assertIn("target ancestor is a symlink", plan.conflicts[0].detail)
+            with self.assertRaises(ApplyError):
+                apply_plan(plan, ["pi"])
+            self.assertEqual([], list(external_root.iterdir()))
+
+    @unittest.skipUnless(hasattr(os, "mkfifo"), "FIFO support required")
+    def test_special_destination_and_manifest_are_conflicts_without_blocking(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            os.mkfifo(root / "AGENTS.md")
+            plan = build_plan(root, render_project(request(root)))
+            operation = next(op for op in plan.operations if op.path == "AGENTS.md")
+            self.assertEqual(Action.CONFLICT, operation.action)
+            self.assertIn("not a regular file", operation.detail)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / ".agentic").mkdir()
+            os.mkfifo(root / ".agentic/manifest.json")
+            plan = build_plan(root, render_project(request(root)))
+            operation = next(op for op in plan.operations if op.path == ".agentic/manifest.json")
+            self.assertEqual(Action.CONFLICT, operation.action)
+            self.assertIn("regular file", operation.detail)
+
     def test_malicious_manifest_path_is_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

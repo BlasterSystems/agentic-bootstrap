@@ -5,25 +5,28 @@
 Agentic Bootstrap separates portable project knowledge, coding-platform adapters, and optional integrations.
 
 ```text
-confirmed answers + detector evidence
-                 |
-                 v
-typed project model
-                 |
-                 v
+bounded evidence ──> untrusted agent proposal ──> human-confirmed facts
+                                                        |
+                                                        v
+                                               typed project model
+                                                        |
+                                                        v
 portable renderer ──> platform adapters ──> optional integrations
                  |
                  v
-create/update/skip/conflict plan
+ownership-aware plan + integrity identifier
                  |
                  v
-validated staged output ──> rollback-capable apply ──> ownership manifest
+trusted-terminal confirmation ──> staged apply/rollback ──> ownership manifest
 ```
 
 ## Modules
 
 - `model.py`: typed facts, features, and generated files
 - `detection.py`: evidence-based stack and command detection
+- `inspection.py`: bounded, no-follow, read-only evidence collection
+- `protocol.py`: strict agent intent and canonical plan-integrity schemas
+- `facade.py`: safe inspection, prepare, and apply entry points
 - `renderer.py`: portable core composition
 - `adapters/`: Claude, Codex, Pi, and OpenCode native artifacts
 - `planner.py`: ownership-aware file operation planning
@@ -37,6 +40,10 @@ validated staged output ──> rollback-capable apply ──> ownership manifes
 Unmanaged files are never overwritten. Immutable manifest-owned files update only when their content and mode match the prior generated state; drift becomes a conflict. Explicitly marked mutable seeds—project instructions, architecture/process docs, ADR index/template, and task template—may be customized and are preserved while their structure is validated. Dry-run does not create the target or modify Git configuration.
 
 Git hooks are generated only when selected, and `setup-hooks.sh` refuses to replace an existing custom `core.hooksPath` without `--force`.
+
+## Agent-guided trust boundary
+
+Repository evidence, agent proposals, and repository-supplied manifests are untrusted. Agents may inspect bounded evidence and preview deterministic plans, but cannot supply generated files or apply. Agent-guided apply is recomputed, fully displayed, and directly confirmed in a separate interactive human terminal. Plan identifiers provide integrity, not identity or authorization. See `docs/AGENT_GUIDED.md`, `docs/THREAT_MODEL.md`, and ADR-0005.
 
 ## Portable core
 

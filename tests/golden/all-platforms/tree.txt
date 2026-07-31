@@ -1,10 +1,12 @@
 .agentic/bin/docs-check
 .agentic/bin/validate
 .agentic/config.json
+.agents/skills/agentic-bootstrap/SKILL.md
 .agents/skills/architecture-decision/SKILL.md
 .agents/skills/docs-check/SKILL.md
 .agents/skills/semantic-versioning/SKILL.md
 .claude/agents/architecture-reviewer.md
+.claude/skills/agentic-bootstrap/SKILL.md
 .claude/skills/architecture-decision/SKILL.md
 .claude/skills/docs-check/SKILL.md
 .claude/skills/semantic-versioning/SKILL.md
@@ -18,6 +20,7 @@
 .opencode/commands/docs-check.md
 AGENTS.md
 CLAUDE.md
+docs/AGENT_GUIDED.md
 docs/ARCHITECTURE.md
 docs/DEVELOPMENT_PROCESS.md
 docs/PLATFORM_SUPPORT.md

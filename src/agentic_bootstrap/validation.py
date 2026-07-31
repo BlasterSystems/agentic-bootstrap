@@ -13,6 +13,7 @@ TOKEN = re.compile(rb"\{\{[A-Z0-9_]+\}\}")
 VALID_ADR_STATUSES = {"Proposed", "Accepted", "Rejected", "Deprecated", "Superseded"}
 ADR_FILENAME = re.compile(r"^(\d{4})-[a-z0-9][a-z0-9-]*\.md$")
 ADR_REFERENCE = re.compile(r"ADR-(\d{4})")
+PORTABLE_FORBIDDEN = ("mcp__", "Task tool", ".claude/", ".codex/", ".opencode/", ".pi/")
 REQUIRED_ADR_SECTIONS = (
     "## Context",
     "## Decision drivers",
@@ -25,11 +26,29 @@ REQUIRED_ADR_SECTIONS = (
 )
 
 
+def _validate_portable_text(relative: str, content: bytes) -> list[str]:
+    errors: list[str] = []
+    try:
+        text = content.decode("utf-8")
+    except UnicodeDecodeError:
+        return [f"{relative}: portable content must be UTF-8 text"]
+    for token in PORTABLE_FORBIDDEN:
+        if token in text:
+            errors.append(f"{relative} contains platform-specific token: {token}")
+    if relative.startswith(".agents/skills/") and relative.endswith("/SKILL.md"):
+        skill_name = relative.split("/")[-2]
+        if not text.startswith("---\n") or f"\nname: {skill_name}\n" not in text:
+            errors.append(f"{relative}: skill front matter name must match its directory")
+    return errors
+
+
 def validate_rendered(files: dict[str, GeneratedFile]) -> list[str]:
     errors: list[str] = []
     for relative, generated in files.items():
         if TOKEN.search(generated.content):
             errors.append(f"{relative}: unresolved template token")
+        if relative == "AGENTS.md" or relative.startswith(".agents/skills/"):
+            errors.extend(_validate_portable_text(relative, generated.content))
         if relative.endswith(".json"):
             try:
                 json.loads(generated.content)
@@ -42,12 +61,6 @@ def validate_rendered(files: dict[str, GeneratedFile]) -> list[str]:
                 errors.append(f"{relative}: invalid TOML: {exc}")
     if "AGENTS.md" not in files:
         errors.append("AGENTS.md is required")
-    else:
-        agents = files["AGENTS.md"].content.decode("utf-8")
-        forbidden = ("mcp__", "Task tool", ".claude/", ".codex/", ".opencode/", ".pi/")
-        for token in forbidden:
-            if token in agents:
-                errors.append(f"AGENTS.md contains platform-specific token: {token}")
     return errors
 
 
@@ -111,6 +124,8 @@ def validate_target(root: Path) -> list[str]:
             continue
         if TOKEN.search(content):
             errors.append(f"{relative}: unresolved template token")
+        if relative == "AGENTS.md" or relative.startswith(".agents/skills/"):
+            errors.extend(_validate_portable_text(relative, content))
         if path.suffix == ".json":
             try:
                 json.loads(content)

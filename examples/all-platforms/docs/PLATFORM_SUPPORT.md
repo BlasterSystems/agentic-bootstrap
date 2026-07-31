@@ -13,13 +13,14 @@ Support is capability-specific. “Enabled” means the adapter was selected; it
 
 ## Portable Core
 
-All selected platforms share provider-neutral project instructions, task workflow, ADRs, deterministic validators, and Agent Skills where natively supported.
+All selected platforms share provider-neutral project instructions, task workflow, ADRs, deterministic validators, and Agent Skills where natively supported. The project-scoped `agentic-bootstrap` skill is advisory: it stops after preview and requires separate human-terminal apply.
 
 ## Optional Features
 
 - MCP is generated only when explicitly selected.
 - Specialized agents are generated only when explicitly selected.
 - Repository-hosting workflows and Git hooks are opt-in.
+- Hooks never invoke an LLM or perform bootstrap mutation.
 - Pi MCP and subagent parity require separately reviewed extensions; they are not native capabilities.
 
 ## Verification

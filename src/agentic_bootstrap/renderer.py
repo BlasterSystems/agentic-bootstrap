@@ -48,6 +48,7 @@ def render_project(request: BootstrapRequest, template_root: Path | None = None)
 
     core_templates = {
         "AGENTS.md": ("core/AGENTS.md", True),
+        "docs/AGENT_GUIDED.md": ("core/docs/AGENT_GUIDED.md", True),
         "docs/ARCHITECTURE.md": ("core/docs/ARCHITECTURE.md", True),
         "docs/DEVELOPMENT_PROCESS.md": ("core/docs/DEVELOPMENT_PROCESS.md", True),
         "docs/README.md": ("core/docs/README.md", True),
@@ -63,7 +64,7 @@ def render_project(request: BootstrapRequest, template_root: Path | None = None)
             mutable=mutable,
         )
 
-    for skill in ("architecture-decision", "docs-check", "semantic-versioning"):
+    for skill in ("agentic-bootstrap", "architecture-decision", "docs-check", "semantic-versioning"):
         target = f".agents/skills/{skill}/SKILL.md"
         files[target] = GeneratedFile.text(
             target, templates.render(f"core/skills/{skill}/SKILL.md", values)

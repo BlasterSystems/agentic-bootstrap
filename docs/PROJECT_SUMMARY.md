@@ -15,10 +15,11 @@ Bootstrap greenfield or existing software projects with provider-neutral instruc
 - Indexed ADRs, documentation catalog, shared skills, lifecycle, and validation.
 - Semantic Versioning release guidance, changelog maintenance, release commits, and annotated Git tags.
 - Dry-run, JSON plans, conflicts, manifests, rollback, and idempotency.
+- Optional agent-guided bounded inspection, strict typed proposals, plan-integrity identifiers, and trusted-terminal human handoff.
 - Opt-in MCP, agents, GitHub workflows, scheduled audits, and Git hooks.
 - Unit, integration, golden-tree, and platform contract tests.
 
-The MVP intentionally exposes only `init`, `retrofit`, and `validate`. There is no version-migration or legacy-compatibility surface before the first release.
+The command surface exposes `init`, `retrofit`, read-only `inspect`, and `validate`. There is no version-migration or legacy-compatibility surface.
 
 ## Acceptance evidence
 

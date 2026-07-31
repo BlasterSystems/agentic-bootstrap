@@ -30,10 +30,10 @@ class CliIntegrationTests(unittest.TestCase):
             self.assertEqual(0, result.returncode, result.stdout)
             self.assertFalse(target.exists())
 
-    def test_cli_exposes_only_mvp_commands(self) -> None:
+    def test_cli_exposes_additive_read_only_inspect_command(self) -> None:
         help_result = run_cli("--help")
         self.assertEqual(0, help_result.returncode, help_result.stdout)
-        self.assertIn("{init,retrofit,validate}", help_result.stdout)
+        self.assertIn("{init,retrofit,inspect,validate}", help_result.stdout)
         self.assertNotIn("migrate", help_result.stdout)
 
     def test_generation_help_explains_safe_public_flags(self) -> None:
@@ -79,6 +79,115 @@ class CliIntegrationTests(unittest.TestCase):
             self.assertEqual("dry-run", data["status"])
             self.assertFalse(data["applied"])
             self.assertTrue(data["operations"])
+
+    def test_inspect_is_json_and_does_not_create_missing_target(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "missing"
+            result = run_cli("inspect", "--target", str(target))
+            self.assertEqual(0, result.returncode, result.stdout)
+            payload = json.loads(result.stdout)
+            self.assertEqual("agentic-bootstrap-inspection/v1", payload["schema"])
+            self.assertEqual("missing", payload["root_state"])
+            self.assertFalse(target.exists())
+
+    def test_agent_guided_preview_is_non_writing_and_has_integrity_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "project"
+            intent = Path(directory) / "intent.json"
+            intent.write_text(
+                json.dumps(
+                    {
+                        "schema": "agentic-bootstrap-intent/v1",
+                        "project": {"name": "guided-project", "test_command": "python -m unittest"},
+                        "features": {"platforms": ["pi"], "mcp": False},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            result = run_cli(
+                "init", "--agent-guided", "--agent-intent", str(intent), "--dry-run",
+                "--plan-format", "json", "--target", str(target),
+            )
+            self.assertEqual(0, result.returncode, result.stdout)
+            payload = json.loads(result.stdout)
+            self.assertEqual("agentic-bootstrap-plan/v1", payload["schema"])
+            self.assertEqual(64, len(payload["plan_id"]))
+            self.assertEqual("integrity-only-not-identity-or-authorization", payload["plan_id_semantics"])
+            self.assertTrue(payload["human_handoff_required"])
+            self.assertEqual("untrusted-preview", payload["authority"])
+            self.assertFalse(target.exists())
+
+    def test_agent_intent_null_explicitly_clears_detected_command(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "project"
+            target.mkdir()
+            (target / "package.json").write_text(
+                json.dumps({"scripts": {"dev": "vite"}}), encoding="utf-8"
+            )
+            intent = Path(directory) / "intent.json"
+            intent.write_text(
+                json.dumps(
+                    {
+                        "schema": "agentic-bootstrap-intent/v1",
+                        "project": {"name": "guided-project", "run_command": None},
+                        "features": {"platforms": ["pi"]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            result = run_cli(
+                "retrofit", "--agent-guided", "--agent-intent", str(intent), "--dry-run",
+                "--plan-format", "json", "--target", str(target),
+            )
+            self.assertEqual(0, result.returncode, result.stdout)
+            payload = json.loads(result.stdout)
+            self.assertIsNone(payload["request"]["project"]["run_command"])
+            self.assertFalse((target / "AGENTS.md").exists())
+
+    def test_agent_guided_rejects_yes_and_noninteractive_apply(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "project"
+            yes = run_cli("init", "--agent-guided", "--yes", "--dry-run", "--target", str(target))
+            self.assertEqual(1, yes.returncode, yes.stdout)
+            self.assertIn("--yes is not allowed", yes.stdout)
+            apply = run_cli(
+                "init", "--agent-guided", "--expected-plan", "0" * 64, "--target", str(target)
+            )
+            self.assertEqual(1, apply.returncode, apply.stdout)
+            self.assertIn("interactive trusted terminal", apply.stdout)
+            self.assertFalse(target.exists())
+
+    def test_agent_guided_cli_values_use_same_strict_proposal_validation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "project"
+            result = run_cli(
+                "init", "--agent-guided", "--name", "**injected**", "--dry-run", "--target", str(target)
+            )
+            self.assertEqual(1, result.returncode, result.stdout)
+            self.assertIn("Markdown delimiters", result.stdout)
+            self.assertFalse(target.exists())
+
+    def test_agent_intent_rejects_arbitrary_content(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "project"
+            intent = Path(directory) / "intent.json"
+            intent.write_text(
+                json.dumps(
+                    {
+                        "schema": "agentic-bootstrap-intent/v1",
+                        "project": {"name": "guided", "content": "arbitrary"},
+                        "features": {},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            result = run_cli(
+                "init", "--agent-guided", "--agent-intent", str(intent), "--dry-run",
+                "--target", str(target),
+            )
+            self.assertEqual(1, result.returncode, result.stdout)
+            self.assertIn("unknown fields", result.stdout)
+            self.assertFalse(target.exists())
 
     def test_retrofit_preserves_custom_hooks_path(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

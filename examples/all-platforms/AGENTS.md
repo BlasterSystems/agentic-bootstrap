@@ -21,7 +21,8 @@ Treat values marked “Not configured” or “Not detected” as unknown. Inspe
 5. Run the configured validation, test, and build commands when applicable.
 6. Update documentation when public behavior, architecture, configuration, or operations change.
 7. Never expose credentials or weaken security controls to make a task pass.
-8. For versions, releases, or tags, read `docs/RELEASING.md` and use the `semantic-versioning` skill.
+8. For agent-guided bootstrap maintenance, read `docs/AGENT_GUIDED.md`; agents may preview but must hand apply to a human terminal.
+9. For versions, releases, or tags, read `docs/RELEASING.md` and use the `semantic-versioning` skill.
 
 ## Progressive Disclosure
 

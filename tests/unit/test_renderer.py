@@ -11,6 +11,9 @@ from agentic_bootstrap.validation import validate_rendered
 from tests.helpers import request
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
 class RendererTests(unittest.TestCase):
     def test_all_platform_contract(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -21,12 +24,28 @@ class RendererTests(unittest.TestCase):
             self.assertIn(".codex/config.toml", files)
             self.assertIn(".codex/agents/architecture-reviewer.toml", files)
             self.assertIn(".opencode/agents/architecture-reviewer.md", files)
+            self.assertIn(".agents/skills/agentic-bootstrap/SKILL.md", files)
             self.assertIn(".agents/skills/architecture-decision/SKILL.md", files)
             self.assertNotIn(".codex.md", files)
             self.assertNotIn(".claude/claude.json", files)
             json.loads(files["opencode.json"].content)
             tomllib.loads(files[".codex/config.toml"].content.decode())
             self.assertEqual([], validate_rendered(files))
+
+    def test_repository_and_packaged_agent_guided_skills_are_identical(self) -> None:
+        packaged = (ROOT / "src/agentic_bootstrap/templates/core/skills/agentic-bootstrap/SKILL.md").read_bytes()
+        self.assertEqual(packaged, (ROOT / ".agents/skills/agentic-bootstrap/SKILL.md").read_bytes())
+        self.assertEqual(packaged, (ROOT / ".claude/skills/agentic-bootstrap/SKILL.md").read_bytes())
+
+    def test_agent_guided_skill_stops_before_apply_and_is_provider_neutral(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            files = render_project(request(Path(directory), ["pi"]))
+            skill = files[".agents/skills/agentic-bootstrap/SKILL.md"].content.decode()
+            self.assertIn("Stop", skill)
+            self.assertIn("Never invoke agent-guided apply yourself", skill)
+            self.assertIn("integrity only", skill)
+            for token in ("mcp__", "Task tool", ".claude/", ".codex/", ".opencode/", ".pi/"):
+                self.assertNotIn(token, skill)
 
     def test_release_skill_and_documentation_are_part_of_the_core(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

@@ -17,6 +17,7 @@ Use this workflow for changes to **all-platforms-example**. Scale the ceremony t
 - Break work into independently verifiable steps.
 - Record expected tests and documentation changes.
 - Decide whether the task has architectural impact.
+- For agent-guided bootstrap maintenance, follow `docs/AGENT_GUIDED.md`; the agent stops after preview and a human applies separately.
 
 ## 3. Architecture Decision Check
 
