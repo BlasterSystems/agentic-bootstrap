@@ -6,8 +6,9 @@ Bootstrap greenfield or existing projects with provider-neutral instructions for
 
 Requires Python 3.11+.
 
+Clone or download this repository, then run from its checkout:
+
 ```bash
-git clone <repository-url> agentic-bootstrap
 cd agentic-bootstrap
 python3 -m pip install -e .
 
@@ -44,7 +45,7 @@ scripts/agentic-bootstrap.sh init --platform all --dry-run --yes --target /path/
 --remove-obsolete  Explicitly remove obsolete manifest-owned files
 ```
 
-Unmanaged files are never overwritten. Start with `--dry-run` when retrofitting.
+See the [answers-file reference](docs/ANSWERS.md) for the JSON schema and a complete example. Unmanaged files are never overwritten; start with `--dry-run` when retrofitting.
 
 ## Documentation: load progressively
 

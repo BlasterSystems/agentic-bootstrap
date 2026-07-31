@@ -30,30 +30,37 @@ These two files must contain the same version:
 3. Propose a SemVer bump and obtain confirmation.
 4. Update both authoritative version sources.
 5. Move completed entries from `CHANGELOG.md` → `Unreleased` into `## [X.Y.Z] - YYYY-MM-DD`.
-6. Refresh checked-in examples:
+6. Refresh serializer-managed repository metadata:
 
    ```bash
-   scripts/agentic-bootstrap.sh init --platform pi --yes \
+   PYTHONPATH=src python3 scripts/sync-version.py
+   ```
+
+7. Refresh checked-in examples:
+
+   ```bash
+   scripts/agentic-bootstrap.sh init --platform pi --yes --remove-obsolete \
      --target examples/minimal --name minimal-example \
      --description "Portable core example"
 
-   scripts/agentic-bootstrap.sh init --platform all --yes \
+   scripts/agentic-bootstrap.sh init --platform all --yes --remove-obsolete \
      --target examples/all-platforms --name all-platforms-example \
      --description "All adapters and optional integrations" \
      --mcp --agents --github --hooks
    ```
 
-7. Run the release gate:
+8. Run the release gate:
 
    ```bash
+   PYTHONPATH=src python3 scripts/sync-version.py --check
    PYTHONPATH=src python3 -m unittest discover -s tests -v
    PYTHONPATH=src python3 -m agentic_bootstrap validate --target .
    .agentic/bin/validate
    python3 -m pip wheel --no-deps --no-build-isolation -w /tmp/agentic-bootstrap-wheel .
    ```
 
-8. Review the complete diff and obtain explicit confirmation before creating Git objects.
-9. Create and verify the release:
+9. Review the complete diff and obtain explicit confirmation before creating Git objects.
+10. Create and verify the release:
 
    ```bash
    git commit -m "chore(release): vX.Y.Z"

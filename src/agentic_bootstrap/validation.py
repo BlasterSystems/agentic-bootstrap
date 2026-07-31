@@ -96,7 +96,12 @@ def validate_target(root: Path) -> list[str]:
 
     for path in candidates:
         relative_parts = path.relative_to(root).parts
-        if any(part in {".git", "templates", "node_modules", ".venv", "__pycache__"} for part in relative_parts):
+        if owned is None and relative_parts and relative_parts[0] == ".pi-subagents":
+            continue
+        if owned is None and any(
+            part in {".git", "templates", "node_modules", ".venv", "__pycache__"}
+            for part in relative_parts
+        ):
             continue
         relative = path.relative_to(root).as_posix()
         try:
@@ -206,17 +211,23 @@ def _validate_adrs(root: Path) -> list[str]:
         if superseded_by and status != "Superseded":
             errors.append(f"ADR-{adr_id}: Superseded by requires status Superseded")
         for replacement in superseded_by:
-            replacement_status = records[replacement][2]
+            replacement_record = records.get(replacement)
+            if replacement_record is None:
+                continue
+            replacement_status = replacement_record[2]
             if replacement_status != "Accepted":
                 errors.append(f"ADR-{adr_id}: replacement ADR-{replacement} must be Accepted")
-            if adr_id not in records[replacement][3]:
+            if adr_id not in replacement_record[3]:
                 errors.append(f"ADR-{adr_id}: replacement ADR-{replacement} does not reciprocally supersede it")
         if status == "Accepted":
             for previous in supersedes:
-                previous_status = records[previous][2]
+                previous_record = records.get(previous)
+                if previous_record is None:
+                    continue
+                previous_status = previous_record[2]
                 if previous_status != "Superseded":
                     errors.append(f"ADR-{adr_id}: superseded ADR-{previous} must have status Superseded")
-                if adr_id not in records[previous][4]:
+                if adr_id not in previous_record[4]:
                     errors.append(f"ADR-{adr_id}: superseded ADR-{previous} does not link back")
 
     for adr_id, (_status, link) in index_rows.items():

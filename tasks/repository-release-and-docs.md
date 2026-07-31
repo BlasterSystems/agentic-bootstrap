@@ -24,7 +24,7 @@ Create the first Git history, add a safe Semantic Versioning release skill and d
 
 ## Validation evidence
 
-- Python 3.11, 3.13, and 3.14: 49/49 tests passed on each runtime.
+- Review-fix suite: 56/56 tests passed on Python 3.11, 3.13, and 3.14.
 - Repository, local entrypoint, and both generated-example validators passed.
 - Installed wheel generated and discovered the release skill and release documentation.
 - README examples passed in an isolated Python 3.11 environment.

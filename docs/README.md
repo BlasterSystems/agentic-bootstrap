@@ -15,6 +15,7 @@ Read only the section relevant to the current task.
 
 ## Operations and support
 
+- [Answers file](ANSWERS.md) — noninteractive project facts and feature selections.
 - [Platform support](PLATFORM_SUPPORT.md) — provider capabilities and tested versions.
 - [Generated output](GENERATED_OUTPUT.md) — exact all-feature file tree.
 - [Releasing](RELEASING.md) — SemVer, validation, release commits, and tags.

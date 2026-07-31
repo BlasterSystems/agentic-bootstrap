@@ -13,8 +13,14 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 # Validate this repository
 PYTHONPATH=src python3 -m agentic_bootstrap validate --target .
 
-# Preview an all-platform project
-scripts/agentic-bootstrap.sh init --platform all --dry-run --yes --target /tmp/example
+# Preview an all-platform project in a canonical temporary directory
+(
+  set -e
+  preview_target="$(mktemp -d)"
+  trap 'rmdir "$preview_target"' EXIT
+  preview_target="$(cd "$preview_target" && pwd -P)"
+  scripts/agentic-bootstrap.sh init --platform all --dry-run --yes --target "$preview_target"
+)
 ```
 
 ## Working Rules

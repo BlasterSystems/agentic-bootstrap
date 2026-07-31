@@ -36,6 +36,15 @@ class CliIntegrationTests(unittest.TestCase):
         self.assertIn("{init,retrofit,validate}", help_result.stdout)
         self.assertNotIn("migrate", help_result.stdout)
 
+    def test_generation_help_explains_safe_public_flags(self) -> None:
+        result = run_cli("init", "--help")
+        self.assertEqual(0, result.returncode, result.stdout)
+        help_text = " ".join(result.stdout.split())
+        self.assertIn("print the plan without creating the target", help_text)
+        self.assertIn("apply without prompting", help_text)
+        self.assertIn("remove unchanged obsolete files", help_text)
+        self.assertIn("docs/ANSWERS.md", help_text)
+
     def test_all_features_apply_and_validate(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             target = Path(directory) / "project"

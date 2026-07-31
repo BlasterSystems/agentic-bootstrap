@@ -6,9 +6,16 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Added
 
+- Answers-file reference and a repository version-metadata synchronization helper.
+
 ### Changed
 
+- Expanded CLI help for safe noninteractive generation and retrofit flags.
+
 ### Fixed
+
+- Ignore Pi subagent runtime artifacts during unmanaged repository validation.
+- Report missing ADR supersession references without validator tracebacks.
 
 ## [0.1.0] - 2026-07-31
 

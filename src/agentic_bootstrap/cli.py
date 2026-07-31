@@ -221,35 +221,80 @@ def _run_generation(args: argparse.Namespace) -> int:
 
 
 def _add_generation_arguments(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--target", default=".")
-    parser.add_argument("--platform", help="comma-separated list or 'all'")
-    parser.add_argument("--name")
-    parser.add_argument("--description")
-    parser.add_argument("--build-command")
-    parser.add_argument("--test-command")
-    parser.add_argument("--run-command")
-    parser.add_argument("--ticket-prefix")
-    parser.add_argument("--answers", help="JSON file with project and feature answers")
-    parser.add_argument("--mcp", action="store_true")
-    parser.add_argument("--agents", action="store_true")
-    parser.add_argument("--github", action="store_true")
-    parser.add_argument("--scheduled-audit", action="store_true", help="add a weekly docs-check schedule; implies --github")
-    parser.add_argument("--hooks", action="store_true")
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--yes", action="store_true")
-    parser.add_argument("--remove-obsolete", action="store_true")
-    parser.add_argument("--plan-format", choices=("text", "json"), default="text")
+    parser.add_argument("--target", default=".", help="project directory to inspect or generate")
+    parser.add_argument("--platform", help="comma-separated platforms or 'all'")
+    parser.add_argument("--name", help="project name; defaults to detected directory metadata")
+    parser.add_argument("--description", help="short project description")
+    parser.add_argument("--build-command", help="authoritative project build command")
+    parser.add_argument("--test-command", help="authoritative project test command")
+    parser.add_argument("--run-command", help="authoritative project run command")
+    parser.add_argument("--ticket-prefix", help="issue prefix, or 'none' when not configured")
+    parser.add_argument(
+        "--answers",
+        metavar="FILE",
+        help="load confirmed project and feature answers from JSON; see docs/ANSWERS.md",
+    )
+    parser.add_argument("--mcp", action="store_true", help="generate native MCP configuration where supported")
+    parser.add_argument("--agents", action="store_true", help="generate specialized-agent definitions where supported")
+    parser.add_argument("--github", action="store_true", help="generate the GitHub documentation-check workflow")
+    parser.add_argument(
+        "--scheduled-audit",
+        action="store_true",
+        help="add a weekly docs-check schedule; implies --github",
+    )
+    parser.add_argument("--hooks", action="store_true", help="generate opt-in Git hook files")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="print the plan without creating the target or changing files",
+    )
+    parser.add_argument(
+        "--yes",
+        action="store_true",
+        help="accept detected/default answers and apply without prompting",
+    )
+    parser.add_argument(
+        "--remove-obsolete",
+        action="store_true",
+        help="remove unchanged obsolete files previously owned by the manifest",
+    )
+    parser.add_argument(
+        "--plan-format",
+        choices=("text", "json"),
+        default="text",
+        help="render a human-readable or machine-readable plan",
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="agentic-bootstrap")
+    formatter = argparse.ArgumentDefaultsHelpFormatter
+    parser = argparse.ArgumentParser(
+        prog="agentic-bootstrap",
+        description="Generate and validate provider-neutral coding-agent project instructions.",
+        formatter_class=formatter,
+    )
     parser.add_argument("--version", action="version", version=f"agentic-bootstrap {__version__}")
     subparsers = parser.add_subparsers(dest="command", required=True)
-    for name in ("init", "retrofit"):
-        child = subparsers.add_parser(name)
-        _add_generation_arguments(child)
-    validate = subparsers.add_parser("validate")
-    validate.add_argument("--target", default=".")
+    init = subparsers.add_parser(
+        "init",
+        help="initialize a greenfield project",
+        description="Plan or initialize a greenfield project.",
+        formatter_class=formatter,
+    )
+    _add_generation_arguments(init)
+    retrofit = subparsers.add_parser(
+        "retrofit",
+        help="add managed files to an existing project safely",
+        description="Plan or apply an ownership-aware retrofit to an existing project.",
+        formatter_class=formatter,
+    )
+    _add_generation_arguments(retrofit)
+    validate = subparsers.add_parser(
+        "validate",
+        help="validate a repository or generated project",
+        formatter_class=formatter,
+    )
+    validate.add_argument("--target", default=".", help="project directory to validate")
     return parser
 
 
