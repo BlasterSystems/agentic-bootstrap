@@ -4,8 +4,13 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-07-31
+
 ### Added
 
+- Provider-neutral bootstrap CLI with `init`, `retrofit`, `inspect`, and `validate` commands.
+- Native Claude Code, Codex, Pi, and OpenCode adapters.
+- Progressive-disclosure documentation, ADR lifecycle, safe planning, ownership manifests, rollback, validation, examples, and cross-platform tests.
 - Answers-file reference and a repository version-metadata synchronization helper.
 - Optional agent-guided bounded inspection, strict typed proposals, deterministic plan-integrity identifiers, trusted-terminal human handoff, and a provider-neutral maintenance skill.
 
@@ -18,11 +23,3 @@ All notable changes to this project are documented here. The format follows [Kee
 
 - Ignore Pi subagent runtime artifacts during unmanaged repository validation.
 - Report missing ADR supersession references without validator tracebacks.
-
-## [0.1.0] - 2026-07-31
-
-### Added
-
-- Provider-neutral bootstrap CLI with `init`, `retrofit`, and `validate` commands.
-- Native Claude Code, Codex, Pi, and OpenCode adapters.
-- Progressive-disclosure documentation, ADR lifecycle, safe planning, ownership manifests, rollback, validation, examples, and cross-platform tests.
