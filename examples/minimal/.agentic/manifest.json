@@ -4,7 +4,7 @@
   "platforms": [
     "pi"
   ],
-  "updated_at": "2026-07-31T13:52:53+00:00",
+  "updated_at": "2026-10-26T22:14:50+00:00",
   "files": {
     ".agentic/bin/docs-check": {
       "sha256": "bb84a835599d8b9052231ffe59fae3b1ee29ea9d22345632143f9be03be16e9e",
@@ -87,7 +87,7 @@
       "mutable": true
     },
     "tasks/task-template.md": {
-      "sha256": "21354702cba1d186de1ebaf5304af7955ec027cc83dbc84de6e7a76b34678430",
+      "sha256": "c8500ba2a29407627df2dbe18ceb894796c457b7f65a9a58fb66ea24508bab0b",
       "executable": false,
       "mutable": true
     }
