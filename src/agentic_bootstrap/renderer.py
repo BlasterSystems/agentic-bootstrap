@@ -18,6 +18,23 @@ def _display(value: str | None, fallback: str = "Not configured") -> str:
     return value.strip() if value and value.strip() else fallback
 
 
+def _ticket_lifecycle(prefix: str) -> str:
+    """Rendered only when a ticket prefix is configured (section 8 of the
+    development process). Status transitions are part of the definition of
+    done; wording stays tracker-neutral."""
+    return f"""## 8. Ticket lifecycle
+
+Work is tracked in the project's issue tracker: task identifiers use the `{prefix}-<number>` convention. **Status transitions are part of the definition of done: a ticket is never left in a state that contradicts the code.**
+
+1. **Fetch** the ticket (description + acceptance criteria) before implementing anything.
+2. **Before coding**: transition the ticket to "In Progress" and assign yourself; record the assignment in the ticket.
+3. **Plan** in `tasks/<TICKET>.md` from `tasks/task-template.md`; keep it updated with decisions, evidence, and residual risks as the work progresses.
+4. **Deliver**: commit `type(scope): description [<TICKET>]`, push, open a PR whose title references the ticket and whose body links the ticket and the task file.
+5. **On merge — mandatory status update**: transition the ticket to "Done" and post an evidence comment (commands run + observed results). This step is blocking: merging without the status update is a process violation, not optional cleanup.
+6. **Multi-ticket changes**: a PR that covers several tickets (e.g. an epic landing its child stories) reconciles every covered ticket's status in the same pass — including epics and parents whose state the change completes. A ticket whose feature is only partially delivered stays "In Progress" with a comment naming the remainder.
+7. **Reconciliation**: when work lands at a coarser grain than the tickets describe (an epic PR implementing many stories), verify each covered ticket against the actual code before transitioning it; tickets whose feature is genuinely absent stay open and become the next work items, not silent "Done"s."""
+
+
 def _values(request: BootstrapRequest) -> dict[str, str]:
     facts = request.facts
     return {
@@ -36,6 +53,9 @@ def _values(request: BootstrapRequest) -> dict[str, str]:
             f"Task identifiers use the `{facts.ticket_prefix}-<number>` convention."
             if facts.ticket_prefix
             else "No issue-tracker or ticket-prefix convention is configured."
+        ),
+        "TICKET_LIFECYCLE": (
+            _ticket_lifecycle(facts.ticket_prefix) if facts.ticket_prefix else ""
         ),
         "GENERATED_VERSION": __version__,
     }

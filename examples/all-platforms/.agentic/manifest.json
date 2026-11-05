@@ -7,7 +7,7 @@
     "pi",
     "opencode"
   ],
-  "updated_at": "2026-10-26T22:14:50+00:00",
+  "updated_at": "2026-11-05T19:20:12+00:00",
   "files": {
     ".agentic/bin/docs-check": {
       "sha256": "bb84a835599d8b9052231ffe59fae3b1ee29ea9d22345632143f9be03be16e9e",
@@ -130,7 +130,7 @@
       "mutable": true
     },
     "docs/DEVELOPMENT_PROCESS.md": {
-      "sha256": "a99d3b90eb78d99db5650d1558e272fd126adc312ba3291596d3fa293d2ae8dc",
+      "sha256": "9afb9167670c57833a05e2fec23876b99e420ebcf78e5a71baf1ac53df03954e",
       "executable": false,
       "mutable": true
     },

@@ -65,3 +65,5 @@ Review the diff for correctness, security, compatibility, test coverage, documen
 - Confirm generated configuration still validates.
 - Provide a concise summary of changes, validation, and remaining risks.
 - For a version bump or release, follow `docs/RELEASING.md` with the `semantic-versioning` skill; obtain explicit confirmation before creating the release commit or tag.
+
+{{TICKET_LIFECYCLE}}
