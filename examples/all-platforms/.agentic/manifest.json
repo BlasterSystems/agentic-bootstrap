@@ -5,22 +5,23 @@
     "claude",
     "codex",
     "pi",
-    "opencode"
+    "opencode",
+    "omp"
   ],
-  "updated_at": "2026-11-09T14:59:57+00:00",
+  "updated_at": "2026-11-09T16:19:05+00:00",
   "files": {
     ".agentic/bin/docs-check": {
-      "sha256": "bb84a835599d8b9052231ffe59fae3b1ee29ea9d22345632143f9be03be16e9e",
+      "sha256": "31a23e8189eb5077217248240fbd04a0f5ac53a255c50a13920aa55e9c517c00",
       "executable": true,
       "mutable": false
     },
     ".agentic/bin/validate": {
-      "sha256": "1a42e3bb7c0d24343fd606d47489c188ec45bb42e08ee283b667727b8295d256",
+      "sha256": "a0aeac0d303e82ecdb5becfc7e5d597f86aceab113b2b84341122809e465855e",
       "executable": true,
       "mutable": false
     },
     ".agentic/config.json": {
-      "sha256": "96e66618249703ab5ae5aeb957a96d18bd8861884f2348c63dcdc18f38ca6a09",
+      "sha256": "7d720770007dd9a7da12bd28f8b8887db73c38359886e3059ee24c3c4350452b",
       "executable": false,
       "mutable": false
     },
@@ -94,6 +95,11 @@
       "executable": false,
       "mutable": false
     },
+    ".omp/RULES.md": {
+      "sha256": "b4c2b37e6eb45379c5aa18479dec4be752685c40ed2c44b0523731a683cdf3bd",
+      "executable": false,
+      "mutable": false
+    },
     ".opencode/agents/architecture-reviewer.md": {
       "sha256": "179074fdc69ba4ad772971640c89ad1ddf3f5be312fd274fc1d6ecd9d44b387e",
       "executable": false,
@@ -135,7 +141,7 @@
       "mutable": true
     },
     "docs/PLATFORM_SUPPORT.md": {
-      "sha256": "b6d72dad85c9e94331cc9f514c61ac4754d9290d5dc99b3750752fbefb51e925",
+      "sha256": "8b486bbc175dc01e71566d802af5194d653230ccb3a4a0ef87d536ff64940504",
       "executable": false,
       "mutable": false
     },

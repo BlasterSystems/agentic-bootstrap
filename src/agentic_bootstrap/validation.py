@@ -13,7 +13,7 @@ TOKEN = re.compile(rb"\{\{[A-Z0-9_]+\}\}")
 VALID_ADR_STATUSES = {"Proposed", "Accepted", "Rejected", "Deprecated", "Superseded"}
 ADR_FILENAME = re.compile(r"^(\d{4})-[a-z0-9][a-z0-9-]*\.md$")
 ADR_REFERENCE = re.compile(r"ADR-(\d{4})")
-PORTABLE_FORBIDDEN = ("mcp__", "Task tool", ".claude/", ".codex/", ".opencode/", ".pi/")
+PORTABLE_FORBIDDEN = ("mcp__", "Task tool", ".claude/", ".codex/", ".opencode/", ".pi/", ".omp/")
 REQUIRED_ADR_SECTIONS = (
     "## Context",
     "## Decision drivers",

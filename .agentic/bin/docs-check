@@ -63,7 +63,10 @@ def classify(paths: list[str]) -> list[str]:
         findings.append("Architecture-significant files changed without an architecture document or ADR update")
     if api and not any("api" in path.lower() or "endpoint" in path.lower() for path in docs):
         findings.append("API-related files changed without an API documentation update")
-    if config and not any("config" in path.lower() or "setup" in path.lower() for path in docs):
+    if config and not any(
+        "config" in path.lower() or "setup" in path.lower() or "answers" in path.lower()
+        for path in docs
+    ):
         findings.append("Configuration-related files changed without a configuration/setup documentation update")
     return findings
 

@@ -54,6 +54,21 @@ class PlatformContractTests(unittest.TestCase):
             support = files["docs/PLATFORM_SUPPORT.md"].content.decode()
             self.assertIn("MCP/subagents require extensions", support)
 
+    def test_omp_core_is_native_with_only_sticky_rules(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            files = render_project(request(Path(directory), ["omp"], mcp=True, agents=True))
+            self.assertIn("AGENTS.md", files)
+            self.assertIn(".agents/skills/agentic-bootstrap/SKILL.md", files)
+            self.assertEqual(
+                [".omp/RULES.md"],
+                [path for path in files if path.startswith(".omp/")],
+            )
+            self.assertNotIn(".mcp.json", files)
+            support = files["docs/PLATFORM_SUPPORT.md"].content.decode()
+            self.assertIn("OhMyPi (omp)", support)
+            self.assertIn("sticky `RULES.md`", support)
+            self.assertIn("sticky .omp/RULES.md invariants", support)
+
     @unittest.skipUnless(shutil.which("claude"), "Claude Code CLI not installed")
     def test_claude_parses_project_mcp(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

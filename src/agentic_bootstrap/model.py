@@ -4,7 +4,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
-SUPPORTED_PLATFORMS = ("claude", "codex", "pi", "opencode")
+SUPPORTED_PLATFORMS = ("claude", "codex", "pi", "opencode", "omp")
 
 
 @dataclass(frozen=True)

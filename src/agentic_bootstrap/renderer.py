@@ -177,6 +177,12 @@ def _platform_rows(request: BootstrapRequest) -> str:
         ("OpenAI Codex", "codex", "AGENTS.md; .agents/skills; optional .codex/config.toml", "Native"),
         ("Pi Coding Agent", "pi", "AGENTS.md and .agents/skills", "Native core; MCP/subagents require extensions"),
         ("OpenCode", "opencode", "AGENTS.md; .agents/skills; opencode.json", "Native"),
+        (
+            "OhMyPi (omp)",
+            "omp",
+            "AGENTS.md and .agents/skills",
+            "Native core; root mcp.json/.mcp.json MCP fallback; sticky .omp/RULES.md invariants",
+        ),
     ]
     return "\n".join(
         f"| {label} | {'Enabled' if key in enabled else 'Not selected'} | {artifacts} | {support} |"

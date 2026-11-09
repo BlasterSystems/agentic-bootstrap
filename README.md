@@ -39,8 +39,9 @@ First-class adapters generate native artifacts for:
 - OpenAI Codex (`AGENTS.md`, `.codex/config.toml`, `.codex/agents/`)
 - Pi Coding Agent (`AGENTS.md`, `.agents/skills`)
 - OpenCode (`AGENTS.md`, `.agents/skills`, `opencode.json`, `.opencode/`)
+- OhMyPi (omp) — portable core natively plus a sticky `.omp/RULES.md` invariant file (omp discovers `AGENTS.md` and `.agents/skills` by default, reads root `mcp.json` / `.mcp.json` as an MCP fallback, and also loads `CLAUDE.md`)
 
-OhMyPi (omp) consumes the portable core without an adapter: it discovers standalone `AGENTS.md` and `.agents/skills/<name>/SKILL.md` by default, reads root `mcp.json` / `.mcp.json` as an MCP fallback, and also loads `CLAUDE.md`. See the [platform support matrix](docs/PLATFORM_SUPPORT.md) for verified versions and support levels.
+See the [platform support matrix](docs/PLATFORM_SUPPORT.md) for verified versions and support levels.
 
 ## Quick start
 

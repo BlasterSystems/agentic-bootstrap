@@ -19,7 +19,8 @@
         "claude",
         "codex",
         "pi",
-        "opencode"
+        "opencode",
+        "omp"
       ],
       "mcp": true,
       "agents": true,
@@ -43,6 +44,10 @@
       "opencode": {
         "mcp": true,
         "agents": true
+      },
+      "omp": {
+        "mcp": false,
+        "agents": false
       }
     }
   }

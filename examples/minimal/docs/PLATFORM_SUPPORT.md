@@ -10,10 +10,11 @@ Support is capability-specific. “Enabled” means the adapter was selected; it
 | OpenAI Codex | Not selected | AGENTS.md; .agents/skills; optional .codex/config.toml | Native |
 | Pi Coding Agent | Enabled | AGENTS.md and .agents/skills | Native core; MCP/subagents require extensions |
 | OpenCode | Not selected | AGENTS.md; .agents/skills; opencode.json | Native |
+| OhMyPi (omp) | Not selected | AGENTS.md and .agents/skills | Native core; root mcp.json/.mcp.json MCP fallback; sticky .omp/RULES.md invariants |
 
 ## Portable Core
 
-All selected platforms share provider-neutral project instructions, task workflow, ADRs, deterministic validators, and Agent Skills where natively supported. The project-scoped `agentic-bootstrap` skill is advisory: it stops after preview and requires separate human-terminal apply.
+All selected platforms share provider-neutral project instructions, task workflow, ADRs, deterministic validators, and Agent Skills where natively supported. The project-scoped `agentic-bootstrap` skill is advisory: it stops after preview and requires separate human-terminal apply. OhMyPi (omp) consumes the portable core natively; its adapter generates only the sticky `RULES.md` invariant file at `.omp/RULES.md`.
 
 ## Optional Features
 

@@ -44,7 +44,7 @@ class RendererTests(unittest.TestCase):
             self.assertIn("Stop", skill)
             self.assertIn("Never invoke agent-guided apply yourself", skill)
             self.assertIn("integrity only", skill)
-            for token in ("mcp__", "Task tool", ".claude/", ".codex/", ".opencode/", ".pi/"):
+            for token in ("mcp__", "Task tool", ".claude/", ".codex/", ".opencode/", ".pi/", ".omp/"):
                 self.assertNotIn(token, skill)
 
     def test_release_skill_and_documentation_are_part_of_the_core(self) -> None:
@@ -60,7 +60,7 @@ class RendererTests(unittest.TestCase):
     def test_portable_agents_has_no_adapter_syntax(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             text = render_project(request(Path(directory)))["AGENTS.md"].content.decode()
-            for token in ("mcp__", "Task tool", ".claude/", ".codex/", ".opencode/", ".pi/"):
+            for token in ("mcp__", "Task tool", ".claude/", ".codex/", ".opencode/", ".pi/", ".omp/"):
                 self.assertNotIn(token, text)
             self.assertIn("docs/adr/README.md", text)
             self.assertIn("Do not read every ADR", text)

@@ -15,7 +15,7 @@ Use `--answers FILE` to provide confirmed project facts and feature choices with
     "ticket_prefix": null
   },
   "features": {
-    "platforms": ["claude", "codex", "pi", "opencode"],
+    "platforms": ["claude", "codex", "pi", "opencode", "omp"],
     "mcp": false,
     "agents": false,
     "github": true,
