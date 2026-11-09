@@ -117,6 +117,8 @@ PYTHONPATH=src python3 -m agentic_bootstrap validate --target .
 
 - [Cloudflare security-audit-skill](https://github.com/cloudflare/security-audit-skill) — the optional security-audit integration ([ADR-0006](docs/adr/0006-opt-in-security-audit-skill.md)) documents and orchestrates this MIT-licensed skill. The skill itself is installed on demand and remains the work of its authors.
 - [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) and [emiliosheinz/agent-skills](https://github.com/emiliosheinz/agent-skills) — the optional task-breakdown and ticket-creation integrations ([ADR-0007](docs/adr/0007-install-on-demand-task-breakdown-skills.md)) document these MIT-licensed skills, installed on demand.
+- [vercel-labs/skills](https://github.com/vercel-labs/skills) — the open skills CLI that the documented `npx skills add` install flows for both integrations run on.
+- [gitleaks](https://github.com/gitleaks/gitleaks) — optional staged-change credential scan in the generated Git pre-commit hook.
 
 ## License
 
