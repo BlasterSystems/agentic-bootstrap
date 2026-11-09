@@ -31,6 +31,17 @@ Point your coding agent at this repository and let it drive the bootstrap; the a
 
 After bootstrap, the generated `AGENTS.md`, progressive-disclosure docs, deterministic validators, and the project-scoped `agentic-bootstrap` skill steer the agent through the development process. See the [agent-guided protocol](docs/AGENT_GUIDED.md) for roles, trust boundaries, and plan integrity.
 
+## Supported harnesses
+
+First-class adapters generate native artifacts for:
+
+- Claude Code (`CLAUDE.md`, `.claude/`, `.mcp.json`)
+- OpenAI Codex (`AGENTS.md`, `.codex/config.toml`, `.codex/agents/`)
+- Pi Coding Agent (`AGENTS.md`, `.agents/skills`)
+- OpenCode (`AGENTS.md`, `.agents/skills`, `opencode.json`, `.opencode/`)
+
+OhMyPi (omp) consumes the portable core without an adapter: it discovers standalone `AGENTS.md` and `.agents/skills/<name>/SKILL.md` by default, reads root `mcp.json` / `.mcp.json` as an MCP fallback, and also loads `CLAUDE.md`. See the [platform support matrix](docs/PLATFORM_SUPPORT.md) for verified versions and support levels.
+
 ## Quick start
 
 Requires Python 3.11+.
