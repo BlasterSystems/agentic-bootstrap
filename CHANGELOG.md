@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+
+- License switched from MIT to Apache-2.0.
+
 ## [0.2.0] - 2026-11-09
 
 ### Added

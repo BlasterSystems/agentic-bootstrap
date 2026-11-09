@@ -120,4 +120,4 @@ PYTHONPATH=src python3 -m agentic_bootstrap validate --target .
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+Apache-2.0 — see [LICENSE](LICENSE).
