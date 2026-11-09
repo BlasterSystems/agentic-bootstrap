@@ -31,8 +31,8 @@ Do not load all project documentation preemptively.
 | Tier | Content | Load when |
 |---|---|---|
 | T0 | This file | Always |
-| T1 | `docs/README.md`, `docs/DEVELOPMENT_PROCESS.md`, and the current task file | Starting implementation work |
-| T2 | `docs/ARCHITECTURE.md` and `docs/adr/README.md` | The task changes architecture or asks why the system works a certain way |
+| T1 | `docs/README.md`, `docs/DEVELOPMENT_PROCESS.md`, `docs/TASK_BREAKDOWN.md`, and the current task file | Starting implementation work |
+| T2 | `docs/ARCHITECTURE.md`, `docs/adr/README.md`, and `docs/SECURITY_AUDIT.md` | The task changes architecture, is security-sensitive, or asks why the system works a certain way |
 | T3 | Matching Proposed or Accepted ADRs, or `docs/RELEASING.md` | Their scope, tags, components, decision, or a release is relevant |
 | T4 | Rejected, Deprecated, or Superseded ADRs and historical specifications | Auditing history or resolving conflicting guidance |
 

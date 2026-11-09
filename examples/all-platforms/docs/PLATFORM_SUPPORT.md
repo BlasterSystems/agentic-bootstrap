@@ -21,6 +21,8 @@ All selected platforms share provider-neutral project instructions, task workflo
 - Specialized agents are generated only when explicitly selected.
 - Repository-hosting workflows and Git hooks are opt-in.
 - Hooks never invoke an LLM or perform bootstrap mutation.
+- The security-audit skill is documented but never generated or auto-installed; install it on demand per `docs/SECURITY_AUDIT.md`.
+- The planning-and-task-breakdown and create-tickets skills are documented but never generated or auto-installed; install them on demand per `docs/TASK_BREAKDOWN.md`.
 - Pi MCP and subagent parity require separately reviewed extensions; they are not native capabilities.
 
 ## Verification

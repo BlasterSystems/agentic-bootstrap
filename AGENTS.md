@@ -39,8 +39,8 @@ PYTHONPATH=src python3 -m agentic_bootstrap validate --target .
 | Tier | Content | Load when |
 |---|---|---|
 | T0 | This file | Always |
-| T1 | `docs/README.md`, `docs/DEVELOPMENT_PROCESS.md`, current task | Starting implementation |
-| T2 | `docs/ARCHITECTURE.md`, `docs/adr/README.md` | Architecture or rationale is relevant |
+| T1 | `docs/README.md`, `docs/DEVELOPMENT_PROCESS.md`, `docs/TASK_BREAKDOWN.md`, current task | Starting implementation |
+| T2 | `docs/ARCHITECTURE.md`, `docs/adr/README.md`, `docs/SECURITY_AUDIT.md` | Architecture, security-sensitive scope, or rationale is relevant |
 | T3 | Matching Proposed or Accepted ADRs, `docs/PLATFORM_SUPPORT.md`, or `docs/RELEASING.md` | The current scope, decision, platform, or release requires them |
 | T4 | Rejected, Deprecated, or Superseded ADRs; historical specifications | Historical or full-framework investigation |
 

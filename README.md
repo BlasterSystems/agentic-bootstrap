@@ -2,6 +2,35 @@
 
 Bootstrap greenfield or existing projects with provider-neutral instructions for Claude Code, Codex, Pi, and OpenCode. Integrations and privileged behavior remain opt-in.
 
+## Use with an agent
+
+Point your coding agent at this repository and let it drive the bootstrap; the agent previews but never applies.
+
+1. The agent runs bounded inspection and a dry-run preview:
+
+   ```bash
+   agentic-bootstrap inspect --target /path/to/project
+
+   agentic-bootstrap retrofit \
+     --agent-guided \
+     --agent-intent /outside/project/intent.json \
+     --dry-run \
+     --plan-format json \
+     --target /path/to/project
+   ```
+
+2. The agent stops and shows the plan identifier. You apply in your own interactive terminal:
+
+   ```bash
+   agentic-bootstrap retrofit \
+     --agent-guided \
+     --agent-intent /outside/project/intent.json \
+     --expected-plan PLAN_SHA256 \
+     --target /path/to/project
+   ```
+
+After bootstrap, the generated `AGENTS.md`, progressive-disclosure docs, deterministic validators, and the project-scoped `agentic-bootstrap` skill steer the agent through the development process. See the [agent-guided protocol](docs/AGENT_GUIDED.md) for roles, trust boundaries, and plan integrity.
+
 ## Quick start
 
 Requires Python 3.11+.
@@ -71,3 +100,12 @@ Read only what the current task requires:
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 PYTHONPATH=src python3 -m agentic_bootstrap validate --target .
 ```
+
+## Credits
+
+- [Cloudflare security-audit-skill](https://github.com/cloudflare/security-audit-skill) — the optional security-audit integration ([ADR-0006](docs/adr/0006-opt-in-security-audit-skill.md)) documents and orchestrates this MIT-licensed skill. The skill itself is installed on demand and remains the work of its authors.
+- [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) and [emiliosheinz/agent-skills](https://github.com/emiliosheinz/agent-skills) — the optional task-breakdown and ticket-creation integrations ([ADR-0007](docs/adr/0007-install-on-demand-task-breakdown-skills.md)) document these MIT-licensed skills, installed on demand.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

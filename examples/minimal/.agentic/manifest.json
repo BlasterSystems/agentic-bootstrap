@@ -4,7 +4,7 @@
   "platforms": [
     "pi"
   ],
-  "updated_at": "2026-11-05T19:20:12+00:00",
+  "updated_at": "2026-11-09T14:15:41+00:00",
   "files": {
     ".agentic/bin/docs-check": {
       "sha256": "bb84a835599d8b9052231ffe59fae3b1ee29ea9d22345632143f9be03be16e9e",
@@ -42,7 +42,7 @@
       "mutable": false
     },
     "AGENTS.md": {
-      "sha256": "5fd703cf41778f19357a9dd2a427fe901f91ced2ae14cd1e7edc58431c8dff9e",
+      "sha256": "b15976a14b6e069fa6a7c28ab7dbca03aaf2cf6b56f3331ae6657daf3ae830c6",
       "executable": false,
       "mutable": true
     },
@@ -57,22 +57,32 @@
       "mutable": true
     },
     "docs/DEVELOPMENT_PROCESS.md": {
-      "sha256": "b1c5d38b7faf882e72692eb12d422f7de8924ea10559b50b06bf5851648fc0ab",
+      "sha256": "f569c7041f7e7d77962ccc41afde1f1a32fa35feefa73388f3b92576e13b0350",
       "executable": false,
       "mutable": true
     },
     "docs/PLATFORM_SUPPORT.md": {
-      "sha256": "c2da49b76b02f6f32601204295e1e26f68afa6f565916e6a143398b8418aaa14",
+      "sha256": "650f78af423e6d8da5e083a2ee5557373251691123bbbf4876b381f8b200daab",
       "executable": false,
       "mutable": false
     },
     "docs/README.md": {
-      "sha256": "77ba02ca03f198b61cac4f6960d22dd48a059e2297fcbbef164b77eabca76081",
+      "sha256": "71fb29ab30431fb7716a8bff005a6de4a044e22609d6f2d9f1b2bb223ff94fa7",
       "executable": false,
       "mutable": true
     },
     "docs/RELEASING.md": {
       "sha256": "e43012e3a80fc492960eab8828aaab1502f779bccd4e42a11cdf32d0e5af6e8a",
+      "executable": false,
+      "mutable": true
+    },
+    "docs/SECURITY_AUDIT.md": {
+      "sha256": "9f095685675a6f1b3b25dbdb9f6371e2c2c184ba8df6e47827a0497a10c49134",
+      "executable": false,
+      "mutable": true
+    },
+    "docs/TASK_BREAKDOWN.md": {
+      "sha256": "a493aa1a719b95abf84bb183925bd6d2e2137dc7e24bae680b76ed25434260f5",
       "executable": false,
       "mutable": true
     },

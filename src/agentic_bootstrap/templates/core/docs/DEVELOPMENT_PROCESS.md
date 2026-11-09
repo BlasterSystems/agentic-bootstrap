@@ -15,6 +15,7 @@ Use this workflow for changes to **{{PROJECT_NAME}}**. Scale the ceremony to the
 
 - Create or update a task file from `tasks/task-template.md`.
 - Break work into independently verifiable steps.
+- For multi-step or ambiguous work, use the planning-and-task-breakdown skill; the task list target and tracker mapping are defined in `docs/TASK_BREAKDOWN.md`.
 - Record expected tests and documentation changes.
 - Decide whether the task has architectural impact.
 - For agent-guided bootstrap maintenance, follow `docs/AGENT_GUIDED.md`; the agent stops after preview and a human applies separately.
@@ -58,12 +59,17 @@ Skip commands marked “Not configured”; record the missing configuration inst
 
 Review the diff for correctness, security, compatibility, test coverage, documentation, and unnecessary complexity. Update the task file with evidence and residual risks.
 
+Open a pull request for reviewable changes. Before merge, significant changes require an independent adversarial review: a fresh read-only pass that tries to disprove correctness, security, compatibility, and scope claims.
+
+For security-sensitive changes or open vulnerability questions, use the security-audit skill in guidance mode; see `docs/SECURITY_AUDIT.md`.
+
 ## 7. Complete
 
 - Ensure acceptance criteria are met.
 - Ensure new or superseding ADRs are indexed and linked.
 - Confirm generated configuration still validates.
 - Provide a concise summary of changes, validation, and remaining risks.
+- Before tagging a release that touches security-relevant surfaces, run the scoped release-gate audit described in `docs/SECURITY_AUDIT.md`.
 - For a version bump or release, follow `docs/RELEASING.md` with the `semantic-versioning` skill; obtain explicit confirmation before creating the release commit or tag.
 
 {{TICKET_LIFECYCLE}}

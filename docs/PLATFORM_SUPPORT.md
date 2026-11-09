@@ -11,7 +11,7 @@ Last verified: 2026-07-31.
 
 ## Support contract
 
-Capabilities are classified independently as native, portable fallback, extension-based, unsupported, or unverified. Selecting a platform does not install credentials, models, third-party extensions, optional integrations, or user-scoped skills. The packaged/project-scoped `agentic-bootstrap` skill is advisory and stops before apply; pre-bootstrap loading is manual and not claimed as a portable installation contract.
+Capabilities are classified independently as native, portable fallback, extension-based, unsupported, or unverified. Selecting a platform does not install credentials, models, third-party extensions, optional integrations, or user-scoped skills. The packaged/project-scoped `agentic-bootstrap` skill is advisory and stops before apply; pre-bootstrap loading is manual and not claimed as a portable installation contract. The external planning-and-task-breakdown and create-tickets skills are documented and installed on demand (ADR-0007); they are never generated, auto-installed, or manifest-owned.
 
 ## Contract validation
 
@@ -19,4 +19,4 @@ Tests validate official file locations and parse generated JSON/TOML. OpenCode t
 
 ## Security defaults
 
-No MCP server, Git hook, repository-host workflow, broad permission grant, or issue tracker is enabled without selection. Hooks never invoke an LLM or perform bootstrap mutation. OpenCode project configuration asks before edits and shell commands. Pi extension-based capabilities are never described as native.
+No MCP server, Git hook, repository-host workflow, broad permission grant, or issue tracker is enabled without selection. Hooks never invoke an LLM or perform bootstrap mutation. OpenCode project configuration asks before edits and shell commands. Pi extension-based capabilities are never described as native. The external security-audit skill is documented and installed on demand (ADR-0006); it is never generated, auto-installed, or manifest-owned.

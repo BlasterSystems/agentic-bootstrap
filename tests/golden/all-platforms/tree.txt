@@ -26,6 +26,8 @@ docs/DEVELOPMENT_PROCESS.md
 docs/PLATFORM_SUPPORT.md
 docs/README.md
 docs/RELEASING.md
+docs/SECURITY_AUDIT.md
+docs/TASK_BREAKDOWN.md
 docs/adr/README.md
 docs/adr/template.md
 opencode.json

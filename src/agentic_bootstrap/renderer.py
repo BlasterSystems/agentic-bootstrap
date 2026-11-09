@@ -73,6 +73,8 @@ def render_project(request: BootstrapRequest, template_root: Path | None = None)
         "docs/DEVELOPMENT_PROCESS.md": ("core/docs/DEVELOPMENT_PROCESS.md", True),
         "docs/README.md": ("core/docs/README.md", True),
         "docs/RELEASING.md": ("core/docs/RELEASING.md", True),
+        "docs/SECURITY_AUDIT.md": ("core/docs/SECURITY_AUDIT.md", True),
+        "docs/TASK_BREAKDOWN.md": ("core/docs/TASK_BREAKDOWN.md", True),
         "docs/adr/README.md": ("core/docs/adr/README.md", True),
         "docs/adr/template.md": ("core/docs/adr/template.md", True),
         "tasks/task-template.md": ("core/tasks/task-template.md", True),
