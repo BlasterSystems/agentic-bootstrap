@@ -1,11 +1,18 @@
 {
   "schema_version": 1,
-  "generator_version": "0.1.0",
+  "generator_version": "0.2.0",
   "project": {
     "name": "agentic-bootstrap",
     "description": "Provider-neutral bootstrap for AI-assisted software projects",
-    "languages": ["Python", "Bash"],
-    "components": ["generator", "templates", "tests"],
+    "languages": [
+      "Python",
+      "Bash"
+    ],
+    "components": [
+      "generator",
+      "templates",
+      "tests"
+    ],
     "commands": {
       "build": null,
       "test": "PYTHONPATH=src python3 -m unittest discover -s tests -v",
@@ -15,7 +22,12 @@
   },
   "features": {
     "requested": {
-      "platforms": ["claude", "codex", "pi", "opencode"],
+      "platforms": [
+        "claude",
+        "codex",
+        "pi",
+        "opencode"
+      ],
       "mcp": false,
       "agents": false,
       "github": true,
@@ -23,10 +35,22 @@
       "hooks": false
     },
     "effective_by_platform": {
-      "claude": {"mcp": false, "agents": false},
-      "codex": {"mcp": false, "agents": false},
-      "pi": {"mcp": false, "agents": false},
-      "opencode": {"mcp": false, "agents": false}
+      "claude": {
+        "mcp": false,
+        "agents": false
+      },
+      "codex": {
+        "mcp": false,
+        "agents": false
+      },
+      "pi": {
+        "mcp": false,
+        "agents": false
+      },
+      "opencode": {
+        "mcp": false,
+        "agents": false
+      }
     }
   }
 }

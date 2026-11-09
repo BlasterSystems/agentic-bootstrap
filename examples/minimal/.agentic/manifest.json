@@ -1,10 +1,10 @@
 {
   "schema": "agentic-bootstrap-manifest/v1",
-  "generator_version": "0.1.0",
+  "generator_version": "0.2.0",
   "platforms": [
     "pi"
   ],
-  "updated_at": "2026-11-09T14:15:41+00:00",
+  "updated_at": "2026-11-09T14:59:57+00:00",
   "files": {
     ".agentic/bin/docs-check": {
       "sha256": "bb84a835599d8b9052231ffe59fae3b1ee29ea9d22345632143f9be03be16e9e",
@@ -17,7 +17,7 @@
       "mutable": false
     },
     ".agentic/config.json": {
-      "sha256": "a22752819e248b95d3001337b310da68d69325d21082d192ca89314e047a056c",
+      "sha256": "e10b3b723b146d2cf4fb44d3000f127de6f7e39bd06792a58f54bb78342b2085",
       "executable": false,
       "mutable": false
     },
@@ -42,7 +42,7 @@
       "mutable": false
     },
     "AGENTS.md": {
-      "sha256": "b15976a14b6e069fa6a7c28ab7dbca03aaf2cf6b56f3331ae6657daf3ae830c6",
+      "sha256": "3c10ffd2cd44c1e4db43bd7065ab0ab2a1526f3783adce41cf095e7ffdcf5dc6",
       "executable": false,
       "mutable": true
     },
@@ -62,7 +62,7 @@
       "mutable": true
     },
     "docs/PLATFORM_SUPPORT.md": {
-      "sha256": "650f78af423e6d8da5e083a2ee5557373251691123bbbf4876b381f8b200daab",
+      "sha256": "fa2f8fa7f3d151c59eb7c2dda322a75f29e570b096ed49b21be2f9489e5ec425",
       "executable": false,
       "mutable": false
     },
